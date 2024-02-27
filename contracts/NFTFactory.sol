@@ -14,5 +14,9 @@ contract NFTFactory {
 
         NftTokenClones.push(newNftToken_);
     }
+
+    function getNFTToken() external view returns(NftToken[] memory) {
+        return NftTokenClones;
+    }
 }
 

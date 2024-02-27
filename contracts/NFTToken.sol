@@ -1,5 +1,6 @@
-// SPDX-License-Identifier: UNLICENSED
-pragma solidity ^0.8.24;
+// SPDX-License-Identifier: MIT
+
+pragma solidity ^0.8.20;
 
 import "@openzeppelin/contracts/utils/Strings.sol";
 import "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
@@ -20,7 +21,7 @@ contract NftToken is ERC721URIStorage {
     constructor(
         string memory _tokenName,
         string memory _tokenSymbol
-    ) ERC721("LeviToken", "LITO") {}
+    ) ERC721(_tokenName, _tokenSymbol) {}
 
     function createNFT(
         address recipient,

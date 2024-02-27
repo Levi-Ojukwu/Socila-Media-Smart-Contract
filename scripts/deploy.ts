@@ -1,21 +1,20 @@
 import { ethers } from "hardhat";
 
 async function main() {
-  const currentTimestampInSeconds = Math.round(Date.now() / 1000);
-  const unlockTime = currentTimestampInSeconds + 60;
+  const NFTFactory = await ethers.deployContract("NFTFactory");
 
-  const lockedAmount = ethers.parseEther("0.001");
+  await NFTFactory.waitForDeployment();
 
-  const lock = await ethers.deployContract("Lock", [unlockTime], {
-    value: lockedAmount,
-  });
+  console.log(`NFTFactory Contract has been deployed to ${NFTFactory.target}`);
 
-  await lock.waitForDeployment();
+  const SocialMedia = await ethers.deployContract("SocialMedia", [
+    NFTFactory.target,
+  ]);
+
+  await SocialMedia.waitForDeployment();
 
   console.log(
-    `Lock with ${ethers.formatEther(
-      lockedAmount
-    )}ETH and unlock timestamp ${unlockTime} deployed to ${lock.target}`
+    `SocialMedia Contract has been deployed to ${SocialMedia.target}`
   );
 }
 
