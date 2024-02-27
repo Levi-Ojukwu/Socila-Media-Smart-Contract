@@ -21,9 +21,15 @@ contract SocialMedia {
         string role;
     }
 
+    struct Comment {
+        address user;
+        string content;
+    }
+
     mapping(address => MediaUsers) users;
     mapping(uint256 => Group) groups;
     mapping(address => uint256) usersBalance;
+    mapping(uint256 => Comment[]) public tokenComments;
 
     event UserRegisteredSuccessfully(address indexed user, string indexed role);
     event GroupCreatedSuccessfully(uint256 indexed groupId, string name, address indexed creator);
@@ -93,12 +99,7 @@ contract SocialMedia {
     }
 
     function getComments(uint256 _tokenId) public view returns (Comment[] memory) {
-        return tpkenComments[_tokenId];
+        return tokenComments[_tokenId];
     }
-
-    function viewNFT(uint256 _tokenId) public view returns (string memory) {
-        return nftAddress.getTokenURI(_tokenId);
-    }
-
 
 }
