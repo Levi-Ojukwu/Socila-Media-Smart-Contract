@@ -28,6 +28,7 @@ contract SocialMedia {
     event UserRegisteredSuccessfully(address indexed user, string indexed role);
     event GroupCreatedSuccessfully(uint256 indexed groupId, string name, address indexed creator);
     event EtherReceivedSuccessfully(address indexed sender, uint256 amount);
+    event CommentAddedSuccessfully(uint256 indexed tokenId, address indexed commenter, string text);
     event EtherWithdrawnSuccessfully(address indexed receiver, uint256 amount);
 
     constructor(address _nftAddress) {
@@ -85,4 +86,19 @@ contract SocialMedia {
     function getUserRole(address _user) public view returns (string memory) {
         return users[_user].role;
     }
+
+    function addComment(uint256 _tokenId, string memory _text) public {
+        tokenComments[_tokenId].push(Comment(msg.sender, _text));
+        emit CommentAddedSuccessfully(_tokenId, msg.sender, _text);
+    }
+
+    function getComments(uint256 _tokenId) public view returns (Comment[] memory) {
+        return tpkenComments[_tokenId];
+    }
+
+    function viewNFT(uint256 _tokenId) public view returns (string memory) {
+        return nftAddress.getTokenURI(_tokenId);
+    }
+
+
 }
